@@ -6,11 +6,11 @@
 
 <br>
 
-MyHbarWallet is a free, client-side interface helping you interact with Hedera™ Hashgraph. Our easy-to-use, open-source platform allows you to generate keys, create accounts, transfer hbars, and so much more.
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ## License
 
-Copyright 2020 Hedera Hashgraph LLC
+Copyright 2021 BAMBU Collective LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
