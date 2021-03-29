@@ -1,6 +1,6 @@
 <div align="center">
    <h1>
-       <img src="src/ui/assets/myhbarwallet-logo.svg" alt="logo" />
+       <img src="src/ui/assets/BAMBU_CustomerPortal.png" alt="logo" />
    </h1>
 </div>
 
