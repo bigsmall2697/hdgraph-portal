@@ -1,7 +1,7 @@
 <template>
     <div class="tile-grid">
         <HomeTileButton
-            :title="$t('homeTileButtons.createNewAccount')"
+            :title="$t('homeTileButtons.getPrimaryKey')"
             :content="$t('homeTileButtons.generateYourPrivateKey')"
             :image="wallet"
             route="create-account"
@@ -9,7 +9,7 @@
         />
 
         <HomeTileButton
-            :title="$t('common.accessMyAccount')"
+            :title="$t('homeTileButtons.enterGallery')"
             :content="$t('homeTileButtons.manageAnAccount')"
             :image="unlock"
             route="access-my-account"

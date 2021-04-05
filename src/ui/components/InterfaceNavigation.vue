@@ -1,4 +1,3 @@
-import {LoginMethod} from "../wallets/Wallet";
 <template>
     <div>
         <div
@@ -17,24 +16,25 @@ import {LoginMethod} from "../wallets/Wallet";
             />
         </div>
         <nav :class="classObject">
-            <InterfaceNavigationSection
+            <router-link
+                :key="'gallery'"
+                :to="{ name: 'gallery' }"
+                class="nav-section-header"
+            >
+                <material-design-icon
+                    alt
+                    class="icon"
+                    :icon="mdiImageMultiple"
+                />
+                <span
+                    class="nav-title"
+                >{{ $t('interface.myGalleries') }}</span>
+            </router-link>
+            <!-- <InterfaceNavigationSection
                 :icon="mdiCoins"
                 :title="$t('interfaceNavigation.crypto')"
                 :routes="cryptoRoutes"
-            />
-
-            <InterfaceNavigationSection
-                v-if="notLedger"
-                :icon="mdiFileDocumentBoxMultipleOutline"
-                :title="$t('interfaceNavigation.files')"
-                :routes="filesRoutes"
-            />
-
-            <InterfaceNavigationSection
-                :icon="mdiToolbox"
-                :title="$t('interfaceNavigation.tools')"
-                :routes="toolsRoutes"
-            />
+            /> -->
         </nav>
         <div
             :class="classObject"
@@ -45,7 +45,7 @@ import {LoginMethod} from "../wallets/Wallet";
 </template>
 
 <script lang="ts">
-import { mdiClose, mdiCoins, mdiFileDocumentBoxMultipleOutline, mdiToolbox } from "@mdi/js";
+import { mdiClose, mdiCoins, mdiFileDocumentBoxMultipleOutline, mdiToolbox, mdiImageMultiple } from "@mdi/js";
 import { computed, defineComponent } from "@vue/composition-api";
 
 import { LoginMethod } from "../../domain/wallets/wallet";
@@ -141,6 +141,7 @@ export default defineComponent({
             mdiFileDocumentBoxMultipleOutline,
             mdiCoins,
             mdiToolbox,
+            mdiImageMultiple,
             handleClick
         };
     }
@@ -235,6 +236,27 @@ nav {
 .close {
     cursor: pointer;
     margin-inline-end: 25px;
+}
+
+.nav-section-header {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    padding: 0 20px;
+    user-select: none;
+    font-size: 14px;
+    margin-block-start: 10px;
+    padding-inline-start: 40px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-title {
+    flex-grow: 1;
+    font-size: 16px;
+    font-weight: 500;
+    margin-inline-start: 10px;
+    color: inherit;
 }
 
 @media (max-width: 1012px) {

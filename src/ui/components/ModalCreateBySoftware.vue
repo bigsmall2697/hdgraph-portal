@@ -15,8 +15,9 @@
                     :options="options"
                 />
                 <!--'Support coming soon!' note? -->
-                <PurchaseWalletLink />
+                <!-- <PurchaseWalletLink /> -->
                 <Button
+                    class="modal-access-submit-button"
                     :disabled="state.optionSelected == null"
                     :label="$t('common.continue')"
                 />
@@ -101,6 +102,10 @@ export default defineComponent({
     align-items: stretch;
     display: flex;
     flex-direction: column;
+}
+
+.modal-access-submit-button {
+    margin-top: 10px;
 }
 
 .hardware-link {

@@ -5,10 +5,6 @@
             <div class="main">
                 <router-view />
             </div>
-            <div class="interface-ads">
-                <AdBlockBuyHbar v-if="false" />
-                <AdBlockTwitter />
-            </div>
             <AccountCard
                 v-if="account"
                 :realm="account.realm"

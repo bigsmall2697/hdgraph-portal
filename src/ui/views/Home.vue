@@ -5,7 +5,12 @@
                 <div class="banner">
                     <div class="banner-content">
                         <div class="title">
-                            {{ $t("home.theNumberOneHbarWallet") }}
+                            <template v-if="state.user && state.user.wallet">
+                                {{ $t("home.userGallery", { user: state.user.wallet }) }}
+                            </template>
+                            <template v-else>
+                                {{ $t("home.theGallery") }}
+                            </template>
                         </div>
                         <div class="subtitle">
                             {{ $t("home.myHbarWalletIsAFreeClientSideInterface") }}
@@ -66,11 +71,17 @@ import Community from "../components/Community.vue";
 import HomeTileButtons from "../components/HomeTileButtons.vue";
 import circleImage from "../assets/circle.png";
 import hbarOrb from "../assets/hbar_orb.svg";
-import mountainTop from "../assets/mountain_top.svg";
+import mountainTop from "../assets/GallerHome_Page.png";
 import ModalWelcome from "../components/ModalWelcome.vue";
 import { getters, mutations } from "../store";
 
+import { User } from "src/domain/user";
+
 declare const IS_ELECTRON: boolean;
+
+function getUser(): User | null {
+    return getters.currentUser();
+}
 
 export default defineComponent({
     components: {
@@ -82,7 +93,7 @@ export default defineComponent({
     },
     props: {},
     setup() {
-        const state = reactive({ welcomeIsOpen: false });
+        const state = reactive({ welcomeIsOpen: false, user: getUser() });
 
         onMounted(async() => {
             const platform = await import(/* webpackChunkName: "platform" */ "platform");

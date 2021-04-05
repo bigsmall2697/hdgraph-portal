@@ -3,28 +3,11 @@
         class="home-tile-button"
         :to="{ name: route }"
     >
-        <img
-            class="tile-image"
-            :src="image"
-        >
-        <div class="content">
-            <div class="title">
-                {{ title }}
-            </div>
-            <div class="message">
-                {{ content }}
-            </div>
-            <div
-                v-if="action"
-                class="action-label"
-            >
-                {{ action }}
-                <MaterialDesignIcon
-                    class="action-icon"
-                    :icon="rightArrow"
-                />
-            </div>
-        </div>
+        {{ title }}
+        <MaterialDesignIcon
+            class="action-icon"
+            :icon="rightArrow"
+        />
     </router-link>
 </template>
 
@@ -55,12 +38,12 @@ export default defineComponent({
 .home-tile-button {
     align-items: center;
     background-color: var(--color-byzantine-night-blue);
-    border-radius: 4px;
+    border-radius: 99px;
     color: var(--color-white);
-    display: flex;
     outline: none;
     padding: 30px 40px;
-    padding-block-end: 40px;
+    font-size: 22px;
+    text-align: center;
     text-decoration: none;
 
     /* so the shadow appears over the image directly below this */

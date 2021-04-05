@@ -5,11 +5,15 @@
         }}</span>
 
         <div class="card">
-            <img
+            <!-- <img
                 :src="noLoseIcon"
                 alt=""
                 class="card-image"
-            >
+            > -->
+            <MaterialDesignIcon
+                class="card-image"
+                :icon="mdiLock"
+            />
             <div class="card-body-wrapper">
                 <span class="card-header">{{
                     $t("keystoreWarningCards.dontLoseIt")
@@ -23,11 +27,15 @@
         </div>
 
         <div class="card">
-            <img
+            <!-- <img
                 :src="noShareIcon"
                 alt=""
                 class="card-image"
-            >
+            > -->
+            <MaterialDesignIcon
+                class="card-image"
+                :icon="mdiShareOff"
+            />
             <div class="card-body-wrapper">
                 <span class="card-header">{{
                     $t("keystoreWarningCards.dontShareIt")
@@ -39,11 +47,15 @@
         </div>
 
         <div class="card">
-            <img
+            <!-- <img
                 :src="makeBackupIcon"
                 alt=""
                 class="card-image"
-            >
+            > -->
+            <MaterialDesignIcon
+                class="card-image"
+                :icon="mdiContentCopy"
+            />
             <div class="card-body-wrapper">
                 <span class="card-header">{{
                     $t("keystoreWarningCards.makeABackup")
@@ -57,19 +69,27 @@
 </template>
 
 <script lang="ts">
+import {
+    mdiLock,
+    mdiShareOff,
+    mdiContentCopy
+} from "@mdi/js";
 import { defineComponent } from "@vue/composition-api";
 
-import noLoseIcon from "../assets/icon-no-lose.svg";
-import noShareIcon from "../assets/icon-no-share.svg";
-import makeBackupIcon from "../assets/icon-make-backup.svg";
+import MaterialDesignIcon from "./MaterialDesignIcon.vue";
+
+// import noLoseIcon from "../assets/icon-no-lose.svg";
+// import noShareIcon from "../assets/icon-no-share.svg";
+// import makeBackupIcon from "../assets/icon-make-backup.svg";
 
 export default defineComponent({
     name: "KeystoreWarningCards",
+    components: { MaterialDesignIcon },
     setup() {
         return {
-            noLoseIcon,
-            noShareIcon,
-            makeBackupIcon
+            mdiLock,
+            mdiShareOff,
+            mdiContentCopy
         };
     }
 });
@@ -102,6 +122,7 @@ export default defineComponent({
 
 .card-image {
     height: 80px;
+    width: 60px;
     margin: 0 auto;
     margin-inline-end: 20px;
 }
@@ -110,6 +131,7 @@ export default defineComponent({
     display: flex;
     flex-flow: column;
     text-align: start;
+    flex: 1;
 }
 
 .card-header {

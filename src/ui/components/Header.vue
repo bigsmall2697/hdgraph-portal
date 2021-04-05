@@ -13,7 +13,7 @@
                 <img
                     alt=""
                     class="logo"
-                    src="../assets/myhbarwallet-logo.svg"
+                    src="../assets/Wordmark-original.png"
                 >
             </div>
             <div
@@ -24,7 +24,7 @@
                 <img
                     alt=""
                     class="logo"
-                    src="../assets/myhbarwallet-logo.svg"
+                    src="../assets/Wordmark-original.png"
                 >
             </div>
             <div class="spacer" />

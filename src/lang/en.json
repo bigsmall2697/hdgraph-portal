@@ -310,9 +310,10 @@
     "homeTileButtons.manageAnAccount": "Manage an account, send or receive hbars, create new accounts, and more!",
     "homeTileButtons.getStarted": "Get Started",
     "homeTileButtons.generateYourPrivateKey": "Generate your private key and obtain an account ID. Key saving and security is your responsibility.",
-    "homeTileButtons.createNewAccount": "Create New Account",
-    "homeTileButtons.accessNow": "Access Now",
-    "home.theNumberOneHbarWallet": "The #1 Hbar Wallet",
+    "homeTileButtons.getPrimaryKey": "Get Your Account Private Key",
+    "homeTileButtons.enterGallery": "Enter Your Gallery",
+    "home.theGallery": "The Gallery",
+    "home.userGallery": "{user} Gallery",
     "home.myHbarWalletIsAFreeClientSideInterface": "MyHbarWallet is a free, client-side interface helping you interact with Hedera™ Hashgraph. Our easy-to-use, open-source platform allows you to generate keys, create accounts, transfer hbars, and so much more.",
     "home.myHbarWalletIsAClone": "MyHbarWallet is a clone of one of the most popular wallets on Ethereum. We took that approach because it was open source and people already are familiar with the interface and processes. We want MyHbarWallet to be the simplest and most intuitive interface to Hedera™ Hashgraph.",
     "home.aboutMyHbarWallet": "About MyHbarWallet",
@@ -438,5 +439,6 @@
     "accessMyAccount.pleaseTryAgain": "Could not access wallet, please try again.",
     "accessMyAccount.invalidPassword": "Invalid Password",
     "accessMyAccount.dontHaveAnAccount": "Don't have an account?",
-    "accessMyAccount.createANewAccount": "Create a new account"
+    "accessMyAccount.createANewAccount": "Create a new account",
+    "interface.myGalleries": "My Galleries"
 }
