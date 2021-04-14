@@ -1341,6 +1341,22 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.4.1.tgz#600f2275ff54739ad5ac0102f1467b8963cd5f71"
   integrity sha512-0yPjzuzGMkW1GkrC8yWsiN7vt1OzkMIi9HgxRmKREZl2wnNPOKo/yScTjXf/O57HM8dltqxPF6jlNLFVtc2qdw==
 
+"@growthbunker/vuedarkmode@0.5.9":
+  version "0.5.9"
+  resolved "https://registry.yarnpkg.com/@growthbunker/vuedarkmode/-/vuedarkmode-0.5.9.tgz#c592715f9902537aa38466d51f48275bc0f3bb47"
+  integrity sha512-I5dpLxOPEDwLH6COLRI+/1BqaHC4B45L5gSkUMnnLxvNetRzCeMrTAGTO6chGMNsxIuKbtHVQYlFZI3fFEGsbw==
+  dependencies:
+    v-click-outside "2.1.4"
+    v-hotkey "0.6.0"
+    vee-validate "3.0.11"
+
+"@growthbunker/vuesocial@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@growthbunker/vuesocial/-/vuesocial-0.1.2.tgz#cf62e973687f21802c8d930dba1126594b24f57c"
+  integrity sha512-aMzS42G8JIrst9ZO8TZBXR5uKhpgiUC1Z7B44MTGG2miV3hPveMuApYFZf3PYvaLZCdOnXPvgA7G8sbdyAJVRg==
+  dependencies:
+    "@growthbunker/vuedarkmode" "0.5.9"
+
 "@grpc/grpc-js@^1.0.0", "@grpc/grpc-js@^1.1.3":
   version "1.2.12"
   resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.2.12.tgz#0153f27512acf69184bb52c0a1035ca91d6c14b0"
@@ -19645,6 +19661,16 @@ uuid@^8.0.0, uuid@^8.3.0, uuid@^8.3.1:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
+v-click-outside@2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/v-click-outside/-/v-click-outside-2.1.4.tgz#7d7813b09a0fd4a9d0fbccc2ca12ca7c5591e087"
+  integrity sha512-NbQiwRjJjeKptI1qr1co2Ox44fUWEnj08chR1nw3DVrNCQHjb+sqlevzb1zCXMgb7orTFE0wpiecqMlbOZ15EQ==
+
+v-hotkey@0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/v-hotkey/-/v-hotkey-0.6.0.tgz#265c309e937e27411d1e8e97b96fbbda1be7d1d3"
+  integrity sha512-HsIQa8L5aWB9aJDuHGbCTfIZk5nT7891wtvxUoF3AjT/+Pb7nu3DfhIyO4Vz0jRP8faOJpQn2NkATXAg6hNckA==
+
 v8-compile-cache@^2.0.3, v8-compile-cache@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz#2de19618c66dc247dcfb6f99338035d8245a2cee"
@@ -19678,6 +19704,11 @@ vary@^1, vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
+
+vee-validate@3.0.11:
+  version "3.0.11"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-3.0.11.tgz#5ffe3d501893801529186642d20241cf632f1341"
+  integrity sha512-2KRLdtM/y+bU2o9KC7cZBGPRUsBxQaoFb3IlBOUkj6l24Gx5XWXxNkhaAXK97BRLOdM4CH/gJYFi9DOm0N7dTQ==
 
 vendors@^1.0.0:
   version "1.0.4"

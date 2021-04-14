@@ -154,6 +154,11 @@ export default new Router({
             component: CreateAccount
         },
         {
+            path: "/create-account/verified",
+            name: "create-account",
+            component: CreateAccount
+        },
+        {
             path: "/access-my-account",
             name: "access-my-account",
             component: AccessMyAccount

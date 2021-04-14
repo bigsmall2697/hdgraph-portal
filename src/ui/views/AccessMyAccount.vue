@@ -7,12 +7,18 @@
                     {{ $t("accessMyAccount.createANewAccount") }}
                 </router-link>
             </PageTitle>
-            <AccountTileButtons @click="handleClickTiles" />
+            <!-- <AccountTileButtons @click="handleClickTiles" /> -->
+            <LoginForm
+                v-model="state.loginForm"
+                @submit="handleLoginSubmit"
+                @googleLogin="handleLoginWithGoogle"
+                @facebookLogin="handleLoginWithFacebook"
+            />
         </div>
 
         <FAQs />
 
-        <ModalAccessByPrivateKey
+        <!-- <ModalAccessByPrivateKey
             v-model="state.modalAccessByPrivateKeyState"
             @submit="handleAccessByPrivateKeySubmit"
         />
@@ -56,13 +62,15 @@
             ref="keystoreFile"
             type="file"
             @change="loadKeystore"
-        >
+        > -->
     </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { defineComponent, reactive, ref, Ref } from "@vue/composition-api";
+import VueI18n from "vue-i18n";
+import firebase from "firebase";
 
 import FAQs from "../components/FAQs.vue";
 import AccountTileButtons from "../components/AccountTileButtons.vue";
@@ -74,6 +82,7 @@ import PageTitle from "../components/PageTitle.vue";
 import ModalKeystoreFilePassword from "../components/ModalKeystoreFilePassword.vue";
 import ModalEnterAccountId from "../components/ModalEnterAccountId.vue";
 import ModalRequestToCreateAccount from "../components/ModalRequestToCreateAccount.vue";
+import LoginForm from "../components/LoginForm.vue";
 import { actions, getters, mutations } from "../store";
 import SoftwareWallet from "../../domain/wallets/software";
 import Wallet, { LoginMethod } from "../../domain/wallets/wallet";
@@ -83,9 +92,17 @@ import { HederaStatusErrorTuple, LedgerErrorTuple } from "../store/modules/error
 
 declare const MHW_ENV: string;
 
+interface LoginFormState {
+    email: string;
+    password: string;
+    isBusy: boolean;
+    error: any;
+}
+
 interface State {
     loginMethod: LoginMethod | null;
     wallet: Wallet | null;
+    loginForm: LoginFormState;
 }
 
 export default defineComponent({
@@ -99,13 +116,20 @@ export default defineComponent({
         PageTitle,
         ModalKeystoreFilePassword,
         ModalEnterAccountId,
-        ModalRequestToCreateAccount
+        ModalRequestToCreateAccount,
+        LoginForm
     },
     props: {},
     setup(_, context) {
         const state: AccessAccountDTO & State = reactive({
             keyFile: null,
             possibleKeys: [], // Private Keys
+            loginForm: {
+                email: "",
+                password: "",
+                isBusy: false,
+                error: null
+            },
             modalAccessByHardwareState: {
                 isOpen: false,
                 isBusy: false,
@@ -229,6 +253,55 @@ export default defineComponent({
             Vue.nextTick(() => {
                 state.modalKeystoreFilePasswordState.isOpen = true;
             });
+        }
+
+        async function handleLoginSubmit(): Promise<void> {
+            const pwState = state.loginForm;
+            pwState.isBusy = true;
+
+            try {
+                const result = await firebase.auth().signInWithEmailAndPassword(pwState.email, pwState.password);
+                console.log(result);
+                Vue.nextTick(async() => {
+                    await mutations.navigateToInterface();
+                });
+            } catch (error) {
+                pwState.error = { email: context.root.$t("accessMyAccount.invalidEmail"), password: context.root.$t("accessMyAccount.invalidPassword") };
+            } finally {
+                pwState.isBusy = false;
+            }
+        }
+
+        async function handleLoginWithGoogle(): Promise<void> {
+            const pwState = state.loginForm;
+            // pwState.isBusy = true;
+
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                const result = await firebase.auth().signInWithPopup(provider);
+
+                console.log(result);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                // pwState.isBusy = false;
+            }
+        }
+
+        async function handleLoginWithFacebook(): Promise<void> {
+            const pwState = state.loginForm;
+            // pwState.isBusy = true;
+
+            try {
+                const provider = new firebase.auth.FacebookAuthProvider();
+                const result = await firebase.auth().signInWithPopup(provider);
+
+                console.log(result);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                // pwState.isBusy = false;
+            }
         }
 
         function handleNetworkChange(settings: NetworkSettings): void {
@@ -493,6 +566,9 @@ export default defineComponent({
             handleClickTiles,
             handleAccessBySoftwareSubmit,
             loadKeystore,
+            handleLoginSubmit,
+            handleLoginWithGoogle,
+            handleLoginWithFacebook,
             handleAccessByKeystoreSubmit,
             handleAccessByPhraseSubmit,
             handleAccessByPrivateKeySubmit,

@@ -7,49 +7,18 @@
                     {{ $t("common.accessMyAccount") }}
                 </router-link>
             </PageTitle>
-            <AccountTileButtons @click="handleClickTiles" />
+            <SignupForm
+                v-model="state.signupForm"
+                @submit="handleSignupSubmit"
+                @googleSignup="handleSignupWithGoogle"
+                @facebookSignup="handleSignupWithFacebook"
+            />
         </div>
 
         <FAQs />
 
-        <ModalAccessByHardware
-            v-model="state.modalCreateByHardwareState"
-            @submit="handleCreateByHardwareSubmit"
-        />
-
-        <ModalCreateBySoftware
-            v-model="state.modalCreateBySoftwareState.isOpen"
-            @submit="handleCreateBySoftwareSubmit"
-        />
-
-        <ModalCreateByPhrase
-            v-model="state.modalCreateByPhraseState.isOpen"
-            @submit="handleCreateByPhraseSubmit"
-        />
-
-        <ModalCreateByKeystore
-            v-model="state.modalCreateByKeystoreState"
-            @submit="handleCreateByKeystoreSubmit"
-        />
-
-        <ModalDownloadKeystore
-            v-model="state.modalDownloadKeystoreState"
-            @continue="handleDownloadKeystoreContinue"
-            @submit="handleDownloadKeystoreSubmit"
-        />
-
-        <ModalEnterAccountId
-            v-model="state.modalEnterAccountIdState"
-            @network="handleNetworkChange"
-            @noAccount="handleDoesntHaveAccount"
-            @submit="handleAccountIdSubmit"
-            @close="handleAccountIdClose"
-        />
-
-        <ModalRequestToCreateAccount
-            v-model="state.modalRequestToCreateAccountState.isOpen"
-            :public-key="state.publicKey"
-            @hasAccount="handleHasAccount"
+        <ModalVerificationSent
+            v-model="state.modalVerificationSent"
         />
     </div>
 </template>
@@ -57,6 +26,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { defineComponent, reactive, ref, SetupContext } from "@vue/composition-api";
+import firebase from "firebase";
 
 import FAQs from "../components/FAQs.vue";
 import AccountTileButtons from "../components/AccountTileButtons.vue";
@@ -68,6 +38,8 @@ import ModalDownloadKeystore from "../components/ModalDownloadKeystore.vue";
 import ModalEnterAccountId from "../components/ModalEnterAccountId.vue";
 import ModalRequestToCreateAccount from "../components/ModalRequestToCreateAccount.vue";
 import ModalCreateBySoftware, { CreateSoftwareOption } from "../components/ModalCreateBySoftware.vue";
+import ModalVerificationSent from "../components/ModalVerificationSent.vue";
+import SignupForm from "../components/SignupForm.vue";
 import SoftwareWallet from "../../domain/wallets/software";
 import { HederaStatusErrorTuple, LedgerErrorTuple } from "../store/modules/errors";
 import Wallet, { LoginMethod } from "../../domain/wallets/wallet";
@@ -77,9 +49,25 @@ import { NetworkSettings, NetworkName } from "../../domain/network";
 
 declare const MHW_ENV: string;
 
+interface SignupFormState {
+    email: string;
+    password: string;
+    fname: string;
+    lname: string;
+    isBusy: boolean;
+    error: any;
+}
+
+interface ModalVerificationSentState {
+    email: string;
+    isOpen: boolean;
+}
+
 interface State {
     loginMethod: LoginMethod | null;
     wallet: Wallet | null;
+    signupForm: SignupFormState;
+    modalVerificationSent: ModalVerificationSentState;
 }
 
 export default defineComponent({
@@ -93,7 +81,9 @@ export default defineComponent({
         ModalCreateByKeystore,
         ModalDownloadKeystore,
         ModalEnterAccountId,
-        ModalRequestToCreateAccount
+        ModalRequestToCreateAccount,
+        ModalVerificationSent,
+        SignupForm
     },
     props: {},
     setup(props: object, context: SetupContext) {
@@ -101,6 +91,18 @@ export default defineComponent({
             privateKey: null,
             publicKey: null,
             keyFile: null,
+            signupForm: {
+                email: "",
+                password: "",
+                fname: "",
+                lname: "",
+                isBusy: false,
+                error: null
+            },
+            modalVerificationSent: {
+                email: "",
+                isOpen: false
+            },
             modalCreateByHardwareState: {
                 isOpen: false,
                 isBusy: false,
@@ -245,6 +247,70 @@ export default defineComponent({
             }
         }
 
+        async function handleSignupSubmit(): Promise<void> {
+            const pwState = state.signupForm;
+            pwState.isBusy = true;
+
+            try {
+                const url = `${window.location.href.split("?")[ 0 ]}/verified`;
+                const actionCodeSettings = {
+                    url,
+                    handleCodeInApp: true
+                };
+                // const result = await firebase.auth().createUserWithEmailAndPassword(pwState.email, pwState.password);
+                await firebase.auth().sendSignInLinkToEmail(pwState.email, actionCodeSettings);
+                Vue.nextTick(async() => {
+                    state.modalVerificationSent.isOpen = true;
+                });
+            } catch (error) {
+                pwState.error = { general: context.root.$t("createAccount.invalidInformation") };
+            } finally {
+                pwState.isBusy = false;
+            }
+        }
+
+        async function handleSignupWithGoogle(): Promise<void> {
+            const pwState = state.signupForm;
+            // pwState.isBusy = true;
+
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                const result = await firebase.auth().signInWithPopup(provider);
+                if (!result.additionalUserInfo?.isNewUser) {
+                    pwState.error = { general: context.root.$t("createAccount.userExist") };
+                } else {
+                    Vue.nextTick(async() => {
+                        context.root.$router.push({ name: "access-my-account" });
+                    });
+                }
+            } catch (error) {
+                console.error(error);
+            } finally {
+                // pwState.isBusy = false;
+            }
+        }
+
+        async function handleSignupWithFacebook(): Promise<void> {
+            const pwState = state.signupForm;
+            // pwState.isBusy = true;
+
+            try {
+                const provider = new firebase.auth.FacebookAuthProvider();
+                const result = await firebase.auth().signInWithPopup(provider);
+                if (!result.additionalUserInfo?.isNewUser) {
+                    pwState.error = { general: context.root.$t("createAccount.userExist") };
+                } else {
+                    Vue.nextTick(async() => {
+                        context.root.$router.push({ name: "access-my-account" });
+                    });
+                }
+            } catch (error) {
+                console.error(error);
+            } finally {
+                // pwState.isBusy = false;
+            }
+        }
+
         async function handleCreateByKeystoreSubmit(password: string): Promise<void> {
             state.modalCreateByKeystoreState.isOpen = false;
             state.modalDownloadKeystoreState.isOpen = true;
@@ -379,6 +445,9 @@ export default defineComponent({
 
         return {
             state,
+            handleSignupSubmit,
+            handleSignupWithGoogle,
+            handleSignupWithFacebook,
             handleClickTiles,
             handleCreateByHardwareSubmit,
             handleCreateBySoftwareSubmit,
