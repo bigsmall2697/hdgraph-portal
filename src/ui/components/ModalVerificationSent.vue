@@ -4,15 +4,18 @@
         :title="$t('modalVerificationSent.title')"
     >
         <template>
-            <img
-                :src="imageCheck"
-                alt=""
-            >
-            <div class="check-your-email">
-                {{ $t('modalVerificationSent.checkEmail') }}<a
-                    :href="`mailto:${state.email}`"
-                    class="email-address"
-                >{{ state.email }}</a>
+            <div class="modal-container">
+                <img
+                    :src="paperFly"
+                    alt=""
+                    class="check-icon"
+                >
+                <div class="check-your-email">
+                    {{ $t('modalVerificationSent.checkEmail') }}<a
+                        :href="`mailto:${state.email}`"
+                        class="email-address"
+                    >{{ state.email }}</a>
+                </div>
             </div>
         </template>
     </Modal>
@@ -21,7 +24,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from "@vue/composition-api";
 
-import imageCheck from "../assets/circle.png";
+import paperFly from "../assets/paperfly-icon.png";
 
 import Modal from "./Modal.vue";
 
@@ -43,18 +46,27 @@ export default defineComponent({
     },
     props: { state: (Object as unknown) as PropType<State> },
     setup() {
-        return { imageCheck };
+        return { paperFly };
     }
 });
 </script>
 
 <style lang="postcss" scoped>
-.check-icon {
-    width: 120px;
-    height: 120px;
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.check-your-email {}
+.check-icon {
+    width: 120px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.check-your-email {
+    text-align: center;
+}
 
 .email-address {
     color: var(--color-melbourne-cup);

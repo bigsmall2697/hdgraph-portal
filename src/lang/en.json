@@ -458,6 +458,11 @@
     "createAccount.signupWithFacebook": "Signup with Facebook",
     "createAccount.invalidInformation": "Invalid information",
     "createAccount.userExist": "User already exists",
+    "createAccount.wantToLogin": "Want to login?",
     "modalVerificationSent.title": "Verification Sent",
-    "modalVerificationSent.checkEmail": "Please check your email: "
+    "modalVerificationSent.checkEmail": "Please check your email: ",
+    "createAccount.verificationPending": "Verifying",
+    "createAccount.verificationSuccess": "Verification Success!",
+    "createAccount.verificationFailed": "Verification Failed!",
+    "createAccount.verificationError": "Please check your email again or token expired"
 }

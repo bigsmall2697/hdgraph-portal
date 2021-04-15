@@ -104,6 +104,12 @@ function CreateAccount(): Promise<typeof import("./views/CreateAccount.vue")> {
         "./views/CreateAccount.vue");
 }
 
+function EmailVerified(): Promise<typeof import("./views/EmailVerified.vue")> {
+    return import(
+        /* webpackChunkName: "interface" */
+        "./views/EmailVerified.vue");
+}
+
 function AccessMyAccount(): Promise<
 typeof import("./views/AccessMyAccount.vue")
 > {
@@ -154,9 +160,9 @@ export default new Router({
             component: CreateAccount
         },
         {
-            path: "/create-account/verified",
-            name: "create-account",
-            component: CreateAccount
+            path: "/create-account/verify",
+            name: "create-account-verify",
+            component: EmailVerified
         },
         {
             path: "/access-my-account",

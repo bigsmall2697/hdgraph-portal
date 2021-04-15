@@ -7,7 +7,6 @@
                     {{ $t("accessMyAccount.createANewAccount") }}
                 </router-link>
             </PageTitle>
-            <!-- <AccountTileButtons @click="handleClickTiles" /> -->
             <LoginForm
                 v-model="state.loginForm"
                 @submit="handleLoginSubmit"
@@ -17,52 +16,6 @@
         </div>
 
         <FAQs />
-
-        <!-- <ModalAccessByPrivateKey
-            v-model="state.modalAccessByPrivateKeyState"
-            @submit="handleAccessByPrivateKeySubmit"
-        />
-
-        <ModalAccessByPhrase
-            v-model="state.modalAccessByPhraseState"
-            @submit="handleAccessByPhraseSubmit"
-        />
-
-        <ModalAccessByHardware
-            v-model="state.modalAccessByHardwareState"
-            @submit="handleAccessByHardwareSubmit"
-        />
-
-        <ModalAccessBySoftware
-            v-model="state.modalAccessBySoftwareState.isOpen"
-            @submit="handleAccessBySoftwareSubmit"
-        />
-
-        <ModalKeystoreFilePassword
-            v-model="state.modalKeystoreFilePasswordState"
-            @submit="handleAccessByKeystoreSubmit"
-        />
-
-        <ModalEnterAccountId
-            v-model="state.modalEnterAccountIdState"
-            @network="handleNetworkChange"
-            @noAccount="handleDoesntHaveAccount"
-            @submit="handleAccountIdSubmit"
-        />
-
-        <ModalRequestToCreateAccount
-            v-model="state.modalRequestToCreateAccountState.isOpen"
-            :public-key="state.publicKey"
-            @hasAccount="handleHasAccount"
-        />
-
-        <input
-            v-show="false"
-            id="file-upload"
-            ref="keystoreFile"
-            type="file"
-            @change="loadKeystore"
-        > -->
     </div>
 </template>
 
@@ -261,7 +214,6 @@ export default defineComponent({
 
             try {
                 const result = await firebase.auth().signInWithEmailAndPassword(pwState.email, pwState.password);
-                console.log(result);
                 Vue.nextTick(async() => {
                     await mutations.navigateToInterface();
                 });
@@ -279,8 +231,6 @@ export default defineComponent({
             try {
                 const provider = new firebase.auth.GoogleAuthProvider();
                 const result = await firebase.auth().signInWithPopup(provider);
-
-                console.log(result);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -295,8 +245,6 @@ export default defineComponent({
             try {
                 const provider = new firebase.auth.FacebookAuthProvider();
                 const result = await firebase.auth().signInWithPopup(provider);
-
-                console.log(result);
             } catch (error) {
                 console.error(error);
             } finally {

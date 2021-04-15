@@ -252,13 +252,19 @@ export default defineComponent({
             pwState.isBusy = true;
 
             try {
-                const url = `${window.location.href.split("?")[ 0 ]}/verified`;
+                const url = `${window.location.href.split("?")[ 0 ]}/verify`;
                 const actionCodeSettings = {
                     url,
                     handleCodeInApp: true
                 };
                 // const result = await firebase.auth().createUserWithEmailAndPassword(pwState.email, pwState.password);
                 await firebase.auth().sendSignInLinkToEmail(pwState.email, actionCodeSettings);
+                window.localStorage.setItem("signupInfo", JSON.stringify({
+                    email: pwState.email,
+                    password: pwState.password,
+                    fname: pwState.fname,
+                    lname: pwState.lname
+                }));
                 Vue.nextTick(async() => {
                     state.modalVerificationSent.isOpen = true;
                 });
