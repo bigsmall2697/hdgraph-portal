@@ -232,6 +232,7 @@ export default defineComponent({
                 const provider = new firebase.auth.GoogleAuthProvider();
                 const result = await firebase.auth().signInWithPopup(provider);
             } catch (error) {
+                // eslint-disable-next-line no-console
                 console.error(error);
             } finally {
                 // pwState.isBusy = false;
@@ -246,6 +247,7 @@ export default defineComponent({
                 const provider = new firebase.auth.FacebookAuthProvider();
                 const result = await firebase.auth().signInWithPopup(provider);
             } catch (error) {
+                // eslint-disable-next-line no-console
                 console.error(error);
             } finally {
                 // pwState.isBusy = false;

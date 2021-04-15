@@ -290,6 +290,7 @@ export default defineComponent({
                     });
                 }
             } catch (error) {
+                // eslint-disable-next-line no-console
                 console.error(error);
             } finally {
                 // pwState.isBusy = false;
@@ -311,6 +312,7 @@ export default defineComponent({
                     });
                 }
             } catch (error) {
+                // eslint-disable-next-line no-console
                 console.error(error);
             } finally {
                 // pwState.isBusy = false;
